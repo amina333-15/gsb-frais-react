@@ -21,13 +21,7 @@ function Navbar() {
     background: "none",
     color: "white",
     border: "none",
-    borderRadius: "6px",
-    padding: "12px",
-    fontSize: "16px",
-    fontWeight: "500",
-    cursor: "pointer",
-    transition: "background-color 0.3s",
-    marginTop: "8px"
+    
   }}
 >
   Déconnexion

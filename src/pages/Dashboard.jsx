@@ -1,5 +1,6 @@
+import React from "react";
 import { useAuth } from "../context/AuthContext";
-
+import FraisTable from "../components/FraisTable.jsx"; 
 function Dashboard() {
   const { user } = useAuth();
 
@@ -7,7 +8,11 @@ function Dashboard() {
     <div>
       <h1>Tableau de bord</h1>
       {user ? (
-        <p>Bienvenue {user.login} !</p>
+        // src/components/Dashboard.jsx
+
+      // Affichage du composant FraisTable
+      <FraisTable />
+
       ) : (
         <p>Vous devez être connecté pour accéder au tableau de bord.</p>
       )}
