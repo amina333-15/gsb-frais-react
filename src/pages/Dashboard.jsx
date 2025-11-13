@@ -7,9 +7,9 @@ function Dashboard() {
   return (
     <div>
       <h1>Tableau de bord</h1>
+            <p>Bienvenue <b>{user.login}</b> !</p>
       {user ? (
         // src/components/Dashboard.jsx
-
       // Affichage du composant FraisTable
       <FraisTable />
 
