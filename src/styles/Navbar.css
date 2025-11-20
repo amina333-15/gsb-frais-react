@@ -27,8 +27,9 @@
 }
 
 .nav-link.logout {
-color: white;
+  color: white;
   text-decoration: none;
   margin-right: 1rem;
   font-weight: 500;
 }
+

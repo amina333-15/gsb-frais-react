@@ -4,28 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { API_URL, getCurrentUser } from "../services/authService";
 import "../styles/FraisForm.css";
 
-function FraisForm({ frais = null }) { // reçoit frais en prop
+function FraisForm({ frais = null }) {
   const navigate = useNavigate();
 
-  // États du formulaire
   const [idFrais, setIdFrais] = useState(null);
   const [anneeMois, setAnneeMois] = useState("");
   const [nbJustificatifs, setNbJustificatifs] = useState("");
-  const [montantValide, setMontantValide] = useState(""); // champ montant validé
+  const [montant, setMontant] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Pré-remplissage si modification
+  // Pré-remplir le formulaire si on modifie un frais existant
   useEffect(() => {
     if (frais) {
       setIdFrais(frais.id_frais);
+      setMontant(frais.montantvalide || "");
       setAnneeMois(frais.anneemois || "");
       setNbJustificatifs(frais.nbjustificatifs?.toString() || "");
-      setMontantValide(frais.montantvalide?.toString() || "");
     }
   }, [frais]);
 
-  // Soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -35,27 +33,31 @@ function FraisForm({ frais = null }) { // reçoit frais en prop
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Token manquant");
 
-      let fraisData = {
+      const fraisData = {
         anneemois: anneeMois,
         nbjustificatifs: parseInt(nbJustificatifs, 10),
       };
 
       if (frais) {
-        // Cas modification
-        fraisData.id_frais = idFrais;
-        fraisData.montantvalide = parseFloat(montantValide);
-        await axios.post(`${API_URL}frais/modif`, fraisData, {
+        // Mise à jour d'un frais existant (UPDATE)
+        fraisData["id_frais"] = idFrais;
+        fraisData["montantvalide"] = parseFloat(montant);
+
+        const response = await axios.post(`${API_URL}frais/modif`, fraisData, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log(response);
       } else {
-        // Cas ajout
-        fraisData.id_visiteur = getCurrentUser()["id_visiteur"];
-        await axios.post(`${API_URL}frais/ajout`, fraisData, {
+        // Ajout d'un nouveau frais (CREATE)
+        fraisData["id_visiteur"] = getCurrentUser()["id_visiteur"];
+
+        const response = await axios.post(`${API_URL}frais/ajout`, fraisData, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log(response);
       }
 
-      navigate("/dashboard"); // redirection après succès
+      navigate("/dashboard");
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -93,21 +95,25 @@ function FraisForm({ frais = null }) { // reçoit frais en prop
           />
         </label>
 
-        {frais && ( // champ affiché uniquement en mode modification
+        {frais && (
           <label>
             Montant validé (€) :
             <input
               type="number"
               step="0.01"
-              value={montantValide}
-              onChange={(e) => setMontantValide(e.target.value)}
+              value={montant}
+              onChange={(e) => setMontant(e.target.value)}
               required
             />
           </label>
         )}
 
         <button type="submit" disabled={loading}>
-          {loading ? "Enregistrement..." : frais ? "Mettre à jour" : "Ajouter"}
+          {loading
+            ? "Enregistrement..."
+            : frais
+            ? "Mettre à jour"
+            : "Ajouter"}
         </button>
       </form>
     </div>

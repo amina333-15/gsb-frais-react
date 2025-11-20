@@ -56,3 +56,12 @@
    border-radius: 4px; 
    font-size: 14px; 
 }
+
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}

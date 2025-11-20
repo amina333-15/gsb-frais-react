@@ -5,7 +5,7 @@ import { API_URL } from "../services/authService";
 import FraisForm from "../components/FraisForm";
 
 function FraisEdit() {
-  const { id } = useParams();  // récupérer l'id depuis l'URL
+  const { id } = useParams();
   const [frais, setFrais] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,7 +34,6 @@ function FraisEdit() {
   if (loading) return <div>Chargement...</div>;
   if (error) return <div style={{ color: "red" }}>{error}</div>;
 
-  // passage des données au composant enfant
   return <FraisForm frais={frais} />;
 }
 

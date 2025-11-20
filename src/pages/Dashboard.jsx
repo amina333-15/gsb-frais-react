@@ -1,6 +1,8 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import FraisTable from "../components/FraisTable.jsx"; 
+import '../styles/Navbar.css'
+ 
 function Dashboard() {
   const { user } = useAuth();
 

@@ -18,6 +18,29 @@ function FraisTable() {
   const [filterNonNull, setFilterNonNull] = useState(true);
   const [minMontant, setMontant] = useState("");
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce frais ?")) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API_URL}frais/suppr`, {
+        data: { id_frais: id },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+
+
+      // Met à jour la liste en supprimant le frais
+      setFraisList(fraisList.filter((frais) => frais.id_frais !== id));
+    } catch (error) {
+      console.error("Erreur lors de la suppression:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchFrais = async () => {
       try {
@@ -103,6 +126,7 @@ function FraisTable() {
             <th>Montant saisi (€)</th>
             <th>Montant validé (€)</th>
             <th>Actions</th>
+
           </tr>
         </thead>
         <tbody>
@@ -122,6 +146,14 @@ function FraisTable() {
                 >
                   Modifier
                 </button>
+
+                <button
+                  onClick={() => handleDelete(frais.id_frais)}
+                  className="delete-button"
+                >
+                  Supprimer
+                </button>
+
               </td>
             </tr>
           ))}
