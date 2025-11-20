@@ -11,6 +11,7 @@ function Navbar() {
           <span><strong>GSB Frais</strong></span>
           <Link to="/" className="nav-link home">Accueil</Link>
           {user && <Link to="/dashboard" className="nav-link dashboard">Tableau de bord</Link>}
+          {user && <Link to="/frais/ajouter" className="nav-link add-frais">Saisir un frais</Link>}
         </div>
 
         <div>

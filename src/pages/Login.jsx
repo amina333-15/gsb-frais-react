@@ -23,7 +23,7 @@ const handleSubmit = async (e) => {
     navigate('/dashboard');
   } catch (error) {
     // gestion des erreurs
-    alert('Échec de la connexion : identifiants incorrects ou problème serveur');
+    alert('Échec de la connexion : identifiants ou mot de passe incorrects');
     console.error(error);
   }
 };
