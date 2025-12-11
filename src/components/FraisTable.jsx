@@ -28,7 +28,6 @@ function FraisTable() {
         data: { id_frais: id },
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       });
 

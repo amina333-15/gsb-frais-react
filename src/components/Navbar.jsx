@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import "../styles/Navbar.css"
 function Navbar() {
   const { user, logoutUser } = useAuth();
 
@@ -17,6 +17,7 @@ function Navbar() {
         <div>
           {user ? (
 <button 
+id="logoutUser"
   onClick={logoutUser} 
   style={{ 
     background: "none",
@@ -27,7 +28,7 @@ function Navbar() {
 >
   Déconnexion
 </button>
-
+ 
           ) : (
             <Link to="/login" className="nav-link login">Connexion</Link>
           )}

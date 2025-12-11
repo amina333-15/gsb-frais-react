@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../services/authService";
-import FraisForm from "../components/FraisForm";
+import FraisForm from "./FraisForm";
 
 function FraisEdit() {
   const { id } = useParams();
