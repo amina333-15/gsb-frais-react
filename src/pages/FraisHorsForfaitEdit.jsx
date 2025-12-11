@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../services/authService";
-import FraisHorsForfaitForm from "./FraisHorsForfaitForm";
+import FraisHorsForfaitForm from "../components/FraisHorsForfaitForm";
 import "../styles/FraisHorsForfait.css";
 
 function FraisHorsForfaitEdit() {

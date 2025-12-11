@@ -14,28 +14,29 @@ function FraisHorsForfait() {
   const [error, setError] = useState("");
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    const fetchFraisHorsForfaitList = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`${API_URL}fraisHF/liste/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setFraisHFList(response.data);
+  const fetchFraisHorsForfaitList = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}fraisHF/liste/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setFraisHFList(response.data);
 
-       // calcul du total des frais hors forfait 
-       let somme = 0; response.data.forEach((fraisHorsForfait) => {
+      // calcul du total des frais hors forfait
+      let somme = 0;
+      response.data.forEach((fraisHorsForfait) => {
         somme += parseFloat(fraisHorsForfait.montant_fraishorsforfait);
       });
       setTotal(somme);
 
-      } catch {
-        setError("Erreur lors du chargement");
-      } finally {
-        setLoading(false);
-      }
-    };
+    } catch {
+      setError("Erreur lors du chargement");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchFraisHorsForfaitList();
   }, [id]);
 
@@ -46,10 +47,8 @@ function FraisHorsForfait() {
         headers: { Authorization: `Bearer ${token}` },
         data: { id_fraisHF: idHF },
       });
-      const response = await axios.get(`${API_URL}fraisHF/liste/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFraisHFList(response.data);
+      // recharge la liste + recalcul du total
+      fetchFraisHorsForfaitList();
     } catch {
       setError("Suppression impossible");
     }
@@ -60,14 +59,14 @@ function FraisHorsForfait() {
 
   return (
     <div className="frais-hors-forfait-container">
-
       <FraisHorsForfaitTable
-        idFrais={id}
-        fraisHFList={fraisHFList}
-        handleDelete={handleDelete}
-      />
-      <div className="total">Total : {total.toFixed(2)} €</div>
-<button
+  idFrais={id}
+  fraisHFList={fraisHFList}
+  handleDelete={handleDelete}
+  total={total}
+/>
+
+      <button
         type="button"
         className="add-button"
         onClick={() => navigate(`/frais/${id}/hors-forfait/ajouter`)}
@@ -81,8 +80,6 @@ function FraisHorsForfait() {
       >
         Retour
       </button>
-      
-
     </div>
   );
 }

@@ -48,11 +48,12 @@ function FraisHorsForfaitForm({ idFrais, fraisHF = null }) {
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
+        
         await axios.post(
           `${API_URL}fraisHF/ajout`,
           {
             id_frais: parseInt(idFrais),
-            date,
+            date: date.replace(/-/g, "/"),// conversion du format
             libelle,
             montant: parseFloat(montant),
           },
@@ -60,7 +61,7 @@ function FraisHorsForfaitForm({ idFrais, fraisHF = null }) {
         );
       }
 
-      navigate(`/frais/${idFrais}/fraisHF`);
+      navigate(`/frais/${idFrais}/hors-forfait`);
     } catch (err) {
       setError(err.response?.data?.message || "Erreur lors de l'enregistrement");
     } finally {
@@ -77,7 +78,8 @@ function FraisHorsForfaitForm({ idFrais, fraisHF = null }) {
         type="text"
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        placeholder="AAAAMM"
+        placeholder="AAAAMMJJ"
+      
         required
       />
 </div>
@@ -109,7 +111,7 @@ function FraisHorsForfaitForm({ idFrais, fraisHF = null }) {
         <button
           type="button"
           className="return-button"
-          onClick={() => navigate(`/frais/${idFrais}/fraisHF`)}
+          onClick={() => navigate(`/frais/${idFrais}/hors-forfait`)}
         >
           Retour
         </button>

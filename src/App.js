@@ -16,7 +16,6 @@ import FraisHorsForfait from "./pages/FraisHorsForfait";
 import FraisHorsForfaitAdd from "./pages/FraisHorsForfaitAdd";
 import FraisHorsForfaitEdit from "./pages/FraisHorsForfaitEdit";
 
-import "./styles/Navbar.css";
 function App() {
   return (
     <AuthProvider>

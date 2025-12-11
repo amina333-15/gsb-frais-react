@@ -1,6 +1,6 @@
 // src/pages/FraisAdd.jsx
 import React from "react";
-import FraisForm from "./FraisForm";
+import FraisForm from "../components/FraisForm";
 
 function FraisAdd() {
   return (

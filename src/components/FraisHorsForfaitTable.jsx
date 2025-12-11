@@ -27,9 +27,8 @@ function FraisHorsForfaitTable({ idFrais, fraisHFList, total, handleDelete }) {
                   className="frais-hors-forfait-link"
                   to={`/frais/${idFrais}/hors-forfait/modifier/${f.id_fraishorsforfait}`}
                 >
-
                   Modifier
-                </Link>{" "}
+                </Link>
                 <button onClick={() => handleDelete(f.id_fraishorsforfait)}>
                   Supprimer
                 </button>
@@ -37,9 +36,17 @@ function FraisHorsForfaitTable({ idFrais, fraisHFList, total, handleDelete }) {
             </tr>
           ))}
         </tbody>
+        
       </table>
 
+      <div className="total-frais">
+        <br />
+        <strong>Total : {total} €</strong>
+        <br />
+      </div>
+
     </div>
+
 
   );
 }

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import FraisHorsForfaitForm from "./FraisHorsForfaitForm";
+import FraisHorsForfaitForm from "../components/FraisHorsForfaitForm";
 import "../styles/FraisHorsForfait.css";
 
 function FraisHorsForfaitAdd() {
